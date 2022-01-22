@@ -44,7 +44,7 @@ A small Javascript Libary i´ve created during a art project at the university. 
   ```
   ```
   var timer = new EndlessYTtimer();
-  timer.pause(); //will pause the Timer and dont reset the Timer
+  timer.pauseTimer(); //will pause the Timer and dont reset the Timer
   ``` 
   ```
   var timer = new EndlessYTtimer();

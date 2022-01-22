@@ -62,6 +62,10 @@ A small Javascript Libary i´ve created during a art project at the university. 
   var timer = new EndlessYTtimer();
   timer.endAt("00:00:3"); //set a custom end value to the timer
   ```
+  ```
+  var timer = new EndlessYTtimer();
+  timer.STATE; //returns "RUNNING", "NOTRUNNING", "PAUSED", "STOPPED"
+  ```
 
   ## EventListener
   ```

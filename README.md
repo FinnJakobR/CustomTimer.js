@@ -3,11 +3,11 @@ A small Javascript Libary i´ve created during a art project at the university. 
 
 ## install
 
-```
+```html
  <script src="path/to/timer.js"> </script>
  ```
   ## Basic Usage 
-  ```
+  ```javascript
   var timer = new EndlessYTtimer();
   timer.startTimer(); //will return a string: "0:00:00"
   ```

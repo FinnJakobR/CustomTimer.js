@@ -1,52 +1,60 @@
 class EndlessYTtimer {
     constructor() {
-        EndlessYTtimer.prototype.now = new Date('2021-01-01T00:00:00');
-        EndlessYTtimer.prototype.allreadyStated = false;
-
+        this.now = new Date('2021-01-01T00:00:00');
+        this.allreadyStated = false;
+        this.STATE = "NOTRUNNING";
+        this.pause = true;
     }
     startTimer() {
-        EndlessYTtimer.prototype.pause = false;
-        if (EndlessYTtimer.prototype.allreadyStated == false) {
-            EndlessYTtimer.prototype.allreadyStated = true;
+        this.pause = false;
+        this.STATE = "RUNNING"
+        if (this.allreadyStated == false) {
+            this.allreadyStated = true;
             this.timerIntervall = setInterval(() => {
                 if (!this.pause) {
-                    EndlessYTtimer.prototype.now = new Date(EndlessYTtimer.prototype.now.getTime() + 1000);
-                    return EndlessYTtimer.prototype.now.toString().slice(EndlessYTtimer.prototype.now.toString().indexOf("2021") + 4, EndlessYTtimer.prototype.now.toString().indexOf("G"));
+                    this.now = new Date(this.now.getTime() + 1000);
+                    return this.now.toString().slice(this.now.toString().indexOf("2021") + 4, this.now.toString().indexOf("G"));
 
                 }
 
             }, 1000)
         }
     }
+    getCurrentValue() {
+        return this.now.toString().slice(this.now.toString().indexOf("2021") + 4, this.now.toString().indexOf("G"));
+    }
     getCurrentSeconds() {
-        return EndlessYTtimer.prototype.now.getSeconds();
+        return this.now.getSeconds();
     }
     getCurrentMinutes() {
-        return EndlessYTtimer.prototype.now.getMinutes();
+        return this.now.getMinutes();
     }
     getCurrentHours() {
-        return EndlessYTtimer.prototype.now.getHours();
+        return this.now.getHours();
     }
     getCurrentDays() {
-        return EndlessYTtimer.prototype.now.getDay() - 1;
+        return this.now.getDay() - 1;
     }
     getCurrentMonths() {
-        return EndlessYTtimer.prototype.now.getMonths();
+        return this.now.getMonths();
     }
     getCurrentYears() {
-        return EndlessYTtimer.prototype.now.getFullYear() - 2021;
+        return this.now.getFullYear() - 2021;
     }
     stop() {
-        clearInterval(EndlessYTtimer.prototype.timerIntervall);
-        EndlessYTtimer.prototype.allreadyStated = false;
+        clearInterval(this.timerIntervall);
+        this.now = new Date('2021-01-01T00:00:00');
+        this.allreadyStated = false;
+        this.STATE = "STOPPED"
     }
     pauseTimer() {
-        EndlessYTtimer.prototype.pause = true;
-        //intervallstopppen
+        this.pause = true;
+        this.STATE = "PAUSED"
+            //intervallstopppen
     }
     on(event, callback) {
         if (event == "SecondsChanged") {
-            if (EndlessYTtimer.prototype.allreadyStated == false) {
+            if (this.allreadyStated == false) {
                 setInterval(() => {
                     if (!this.pause) {
                         callback()
@@ -54,7 +62,7 @@ class EndlessYTtimer {
                 }, 1000)
             }
         } else if (event == "MinutesChanged") {
-            if (EndlessYTtimer.prototype.allreadyStated == false) {
+            if (this.allreadyStated == false) {
                 setInterval(() => {
                     if (!this.pause) {
                         callback()
@@ -62,7 +70,7 @@ class EndlessYTtimer {
                 }, 60000)
             }
         } else if (event == "HoursChanged") {
-            if (EndlessYTtimer.prototype.allreadyStated == false) {
+            if (this.allreadyStated == false) {
                 setInterval(() => {
                     if (!this.pause) {
                         callback()
@@ -70,7 +78,7 @@ class EndlessYTtimer {
                 }, 3600000)
             }
         } else if (event == "DaysChanged") {
-            if (EndlessYTtimer.prototype.allreadyStated == false) {
+            if (this.allreadyStated == false) {
                 setInterval(() => {
                     if (!this.pause) {
                         callback()
@@ -78,7 +86,7 @@ class EndlessYTtimer {
                 }, 86400000)
             }
         } else if (event == "MonthsChanged") {
-            if (EndlessYTtimer.prototype.allreadyStated == false) {
+            if (this.allreadyStated == false) {
                 setInterval(() => {
                     if (!this.pause) {
                         callback()
@@ -86,33 +94,39 @@ class EndlessYTtimer {
                 }, 2.629746 * (10 ^ 9))
             }
         } else {
-            console.error("This is not a valid EventListiner for this Timer");
+            console.error("This is not a valid EventListener for this Timer");
         }
     }
     add(val) {
-        var z = new Date(EndlessYTtimer.prototype.now.getTime() + val);
+        var z = new Date(this.now.getTime() + val);
         return z.toString().slice(z.toString().indexOf("2021") + 4, z.toString().indexOf("G"));
     }
     sub(val) {
-        var z = new Date(EndlessYTtimer.prototype.now.getTime() - val);
+        var z = new Date(this.now.getTime() - val);
         return z.toString().slice(z.toString().indexOf("2021") + 4, z.toString().indexOf("G"));
 
     }
     startAt(val) {
-        EndlessYTtimer.prototype.pause = false;
-        let now = new Date('2021-01-01T' + val)
-        this.timerIntervall = setInterval(() => {
-            if (!this.pause) {
-                now = new Date(now.getTime() + 1000);
-                console.log(EndlessYTtimer.prototype.now.toString().slice(EndlessYTtimer.prototype.now.toString().indexOf("2021") + 4, EndlessYTtimer.prototype.now.toString().indexOf("G")))
-            }
+        this.pause = false;
+        this.STATE = "RUNNING"
+        var conval = val.replace(/ /gi, "");
+        this.now = new Date(`2021-01-01T${conval}`);
+        if (this.allreadyStated == false) {
+            this.allreadyStated = true;
+            this.timerIntervall = setInterval(() => {
+                console.log(this.pause);
+                if (!this.pause) {
+                    this.now = new Date(this.now.getTime() + 1000);
+                    return this.now.toString().slice(this.now.toString().indexOf("2021") + 4, this.now.toString().indexOf("G"));
+                }
 
-        }, 1000)
+            }, 1000)
+        }
     }
     endAt(val) {
-        this.timerIntervall = setInterval(() => {
+        setInterval(() => {
             if (!this.pause) {
-                if (new Date("2021-01-01T" + val) == EndlessYTtimer.prototype.now) {
+                if (new Date("2021-01-01T" + val) == this.now) {
                     console.warn("Timer Reached the defined End");
                     this.stop();
                 }
@@ -121,12 +135,12 @@ class EndlessYTtimer {
         }, 1000)
     }
     convertIn(event) {
-        var sec = EndlessYTtimer.prototype.now.getSeconds()
-        var min = EndlessYTtimer.prototype.now.getMinutes();
-        var std = EndlessYTtimer.prototype.now.getHours();
-        var days = Number(EndlessYTtimer.prototype.now.toString().slice(8, 10)) - 1;
-        var month = EndlessYTtimer.prototype.now.getMonth();
-        var year = EndlessYTtimer.prototype.now.getFullYear() - 2021;
+        var sec = this.now.getSeconds()
+        var min = this.now.getMinutes();
+        var std = this.now.getHours();
+        var days = Number(this.now.toString().slice(8, 10)) - 1;
+        var month = this.now.getMonth();
+        var year = this.now.getFullYear() - 2021;
         if (event == "Seconds") {
             return sec + (min * 60) + (std * 3600) + (days * 86400) + (year * 31536000) + (month * 2628000);
         } else if (event == "Minutes") {

@@ -92,7 +92,7 @@ A small Javascript Libary i´ve created during a art project at the university. 
    timer.convertIn(event)
    
     timer.convertIn("Seconds"); // will convert the State in seconds 
-    timer.convertIn("Miuntes"); // will convert the State in Minutes 
+    timer.convertIn("Minutes"); // will convert the State in Minutes 
     timer.convertIn("Days"); // will convert the State in Days 
    ```
    

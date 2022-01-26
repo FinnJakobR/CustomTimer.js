@@ -124,15 +124,16 @@ class EndlessYTtimer {
         }
     }
     endAt(val) {
+        var conval = val.replace(/ /gi, "");
         setInterval(() => {
             if (!this.pause) {
-                if (new Date("2021-01-01T" + val) == this.now) {
+                if (new Date("2021-01-01T" + conval).getTime() == this.now.getTime()) {
                     console.warn("Timer Reached the defined End");
                     this.stop();
                 }
             }
 
-        }, 1000)
+        }, 1000);
     }
     convertIn(event) {
         var sec = this.now.getSeconds()
